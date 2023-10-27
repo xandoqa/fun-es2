@@ -1,0 +1,56 @@
+#include <stdio.h>
+
+void imprimir_opcoes_pagamento() {
+    printf("Opções de pagamento:\n");
+    printf("a) À vista com 10%% de desconto\n");
+    printf("b) Em duas vezes (preço da etiqueta)\n");
+    printf("c) De 3 até 10 vezes com 3%% de juros ao mês (somente para compras acima de R$ 100,00)\n");
+}
+
+char obter_opcao() {
+    char opcao;
+    printf("Escolha a opção desejada (a, b ou c): ");
+    scanf(" %c", &opcao);
+    return opcao;
+}
+
+void calcular_pagamento(float total_gasto, char opcao) {
+    switch (opcao) {
+        case 'a':
+            printf("Valor total com 10%% de desconto: R$%.2f\n", total_gasto * 0.9);
+            break;
+        case 'b':
+            printf("Valor total em duas vezes: R$%.2f em duas parcelas de R$%.2f\n", total_gasto, total_gasto / 2);
+            break;
+        case 'c':
+            if (total_gasto > 100) {
+                int num_parcelas;
+                printf("Digite o número de parcelas (3 a 10): ");
+                scanf("%d", &num_parcelas);
+                if (num_parcelas >= 3 && num_parcelas <= 10) {
+                    float valor_com_juros = total_gasto;
+                    for (int i = 0; i < num_parcelas; i++) {
+                        valor_com_juros *= 1.03;
+                    }
+                    float valor_parcela = valor_com_juros / num_parcelas;
+                    printf("Valor total em %d vezes: R$%.2f em parcelas de R$%.2f cada.\n", num_parcelas, valor_com_juros, valor_parcela);
+                } else {
+                    printf("Número de parcelas inválido.\n");
+                }
+            } else {
+                printf("Essa opção de parcelamento só é válida para compras acima de R$100.\n");
+            }
+            break;
+        default:
+            printf("Opção inválida.\n");
+    }
+}
+
+int main() {
+    float total_gasto;
+    printf("Digite o total gasto pelo cliente: R$");
+    scanf("%f", &total_gasto);
+    imprimir_opcoes_pagamento();
+    char opcao = obter_opcao();
+    calcular_pagamento(total_gasto, opcao);
+}

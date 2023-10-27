@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+void calcular_locacoes_gratuitas(int vetor[], int locacoes_gratuitas[], int tamanho) {
+    for (int i = 0; i < tamanho; i++) {
+        locacoes_gratuitas[i] = vetor[i] / 15;
+    }
+}
+
+int main() {
+    int vetor_A[500];
+    int locacoes_gratuitas[500];
+    
+    // Preencha o vetor_A com as quantidades de filmes retirados por cada cliente.
+    
+    calcular_locacoes_gratuitas(vetor_A, locacoes_gratuitas, 500);
+}
